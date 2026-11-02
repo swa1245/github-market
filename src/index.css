@@ -11,3 +11,28 @@ body {
 #root {
   min-height: 100vh;
 }
+
+/* Attractive thin scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c5cdd8 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 4px 0;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #b8c2d0 0%, #9aa8b8 100%);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #9aa8b8 0%, #7f8d9e 100%);
+}

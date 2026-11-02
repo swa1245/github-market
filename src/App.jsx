@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import DashboardPage from './pages/dashboard/DashboardPage'
 import NotFoundPage from './pages/NotFoundPage'
 import LoginPage from './pages/auth/LoginPage'
 import RecoverPasswordPage from './pages/auth/RecoverPasswordPage'
@@ -9,6 +10,10 @@ import UnlockPage from './pages/auth/UnlockPage'
 export default function App() {
   const [view, setView] = useState('login')
   const [email, setEmail] = useState('')
+
+  if (view === 'dashboard') {
+    return <DashboardPage />
+  }
 
   if (view === 'register') {
     return <RegisterPage onSwitchToLogin={() => setView('login')} />
@@ -40,7 +45,7 @@ export default function App() {
     return (
       <UnlockPage
         onSwitchToLogin={() => setView('login')}
-        onUnlock={() => setView('notfound')}
+        onUnlock={() => setView('dashboard')}
       />
     )
   }
@@ -53,6 +58,7 @@ export default function App() {
     <LoginPage
       onSwitchToRegister={() => setView('register')}
       onSwitchToRecover={() => setView('recover')}
+      onLoginSuccess={() => setView('dashboard')}
     />
   )
 }

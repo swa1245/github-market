@@ -4,13 +4,14 @@ import AuthInput from './AuthInput'
 import GoogleIcon from './GoogleIcon'
 import PasswordField from './PasswordField'
 
-export default function LoginForm({ onSwitchToRegister, onSwitchToRecover }) {
+export default function LoginForm({ onSwitchToRegister, onSwitchToRecover, onLoginSuccess }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(true)
 
   function onSubmit(e) {
     e.preventDefault()
+    onLoginSuccess?.()
   }
 
   return (
