@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import DashboardPage from './pages/dashboard/DashboardPage'
+import SettingsPage from './pages/settings/SettingsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import LoginPage from './pages/auth/LoginPage'
 import RecoverPasswordPage from './pages/auth/RecoverPasswordPage'
@@ -12,7 +13,22 @@ export default function App() {
   const [email, setEmail] = useState('')
 
   if (view === 'dashboard') {
-    return <DashboardPage />
+    return (
+      <DashboardPage
+        onOpenSettings={() => setView('settings')}
+        onLock={() => setView('unlock')}
+        onLogout={() => setView('login')}
+      />
+    )
+  }
+
+  if (view === 'settings') {
+    return (
+      <SettingsPage
+        onLock={() => setView('unlock')}
+        onLogout={() => setView('login')}
+      />
+    )
   }
 
   if (view === 'register') {

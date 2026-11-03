@@ -5,6 +5,7 @@ import searchIcon from '../../assets/images/search-01.svg'
 import arrowDownIcon from '../../assets/images/arrow-down-01.png'
 import menuIcon from '../../assets/images/Align-Left.png'
 import lockIcon from '../../assets/images/Lock1.svg'
+import settingsIcon from '../../assets/images/Settings.png'
 
 const initialNotifications = [
   { id: 1, name: 'Regina Cooper', time: '1 min ago' },
@@ -42,18 +43,6 @@ function IconClipboard() {
   )
 }
 
-function IconSettings() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <circle cx="12" cy="12" r="3" />
-      <path
-        strokeLinecap="round"
-        d="M12 3v2.2M12 18.8V21M4.9 6.5l1.6 1.6M17.5 15.9l1.6 1.6M3 12h2.2M18.8 12H21M4.9 17.5l1.6-1.6M17.5 8.1l1.6-1.6"
-      />
-    </svg>
-  )
-}
-
 function IconLogout() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -69,7 +58,14 @@ const profileMenuTop = [
   { label: 'My Tasks', icon: IconClipboard },
 ]
 
-export default function Header({ onMenuClick }) {
+export default function Header({
+  onMenuClick,
+  onOpenSettings,
+  onLock,
+  onLogout,
+  hideMenu,
+  actionsOnly,
+}) {
   const [notifOpen, setNotifOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
   const [notifications, setNotifications] = useState(initialNotifications)
@@ -89,17 +85,7 @@ export default function Header({ onMenuClick }) {
     setNotifications((list) => list.filter((n) => n.id !== id))
   }
 
-  return (
-    <header className="relative flex h-14 shrink-0 items-center justify-between border-b border-[#eceff3] bg-white px-4 sm:h-16 sm:px-6">
-      <button
-        type="button"
-        onClick={onMenuClick}
-        className="cursor-pointer"
-        aria-label="Toggle sidebar"
-      >
-        <img src={menuIcon} alt="" className="h-5 w-5 object-contain" />
-      </button>
-
+  const actions = (
       <div className="flex items-center gap-3 sm:gap-4">
         <button type="button" className="cursor-pointer">
           <img src={searchIcon} alt="" className="h-5 w-5" />
@@ -223,15 +209,21 @@ export default function Header({ onMenuClick }) {
               <div className="border-t border-[#e8eaed] bg-white px-2 py-2">
                 <button
                   type="button"
+                  onClick={() => {
+                    setProfileOpen(false)
+                    onOpenSettings?.()
+                  }}
                   className="flex w-full cursor-pointer items-center gap-3 rounded-xl bg-[#eef0f3] px-3 py-2.5 text-left text-[13px] font-medium text-[#1f2937]"
                 >
-                  <span className="text-[#6b7280]">
-                    <IconSettings />
-                  </span>
+                  <img src={settingsIcon} alt="" className="h-[18px] w-[18px] object-contain" />
                   Settings
                 </button>
                 <button
                   type="button"
+                  onClick={() => {
+                    setProfileOpen(false)
+                    onLock?.()
+                  }}
                   className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[13px] font-medium text-[#4b5563] hover:bg-[#f3f4f6]"
                 >
                   <img src={lockIcon} alt="" className="h-[18px] w-[18px] object-contain opacity-70" />
@@ -242,6 +234,10 @@ export default function Header({ onMenuClick }) {
               <div className="border-t border-[#e8eaed] bg-white px-2 py-2">
                 <button
                   type="button"
+                  onClick={() => {
+                    setProfileOpen(false)
+                    onLogout?.()
+                  }}
                   className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[13px] font-medium text-[#4b5563] hover:bg-[#f3f4f6]"
                 >
                   <span className="text-[#6b7280]">
@@ -254,6 +250,27 @@ export default function Header({ onMenuClick }) {
           ) : null}
         </div>
       </div>
+  )
+
+  if (actionsOnly) {
+    return <div className="relative flex items-center">{actions}</div>
+  }
+
+  return (
+    <header className="relative flex h-14 shrink-0 items-center justify-between border-b border-[#eceff3] bg-white px-4 sm:h-16 sm:px-6">
+      {hideMenu ? (
+        <div />
+      ) : (
+        <button
+          type="button"
+          onClick={onMenuClick}
+          className="cursor-pointer"
+          aria-label="Toggle sidebar"
+        >
+          <img src={menuIcon} alt="" className="h-5 w-5 object-contain" />
+        </button>
+      )}
+      {actions}
     </header>
   )
 }

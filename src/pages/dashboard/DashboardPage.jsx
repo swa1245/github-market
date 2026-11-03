@@ -9,8 +9,9 @@ import StatisticsBars from '../../components/dashboard/StatisticsBars'
 import StatisticsButterfly from '../../components/dashboard/StatisticsButterfly'
 import Transactions from '../../components/dashboard/Transactions'
 import ExportMenu from '../../components/dashboard/ExportMenu'
+import DateFilterMenu from '../../components/dashboard/DateFilterMenu'
 
-export default function DashboardPage() {
+export default function DashboardPage({ onOpenSettings, onLock, onLogout }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
@@ -28,7 +29,12 @@ export default function DashboardPage() {
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
-        <Header onMenuClick={() => setSidebarOpen((v) => !v)} />
+        <Header
+          onMenuClick={() => setSidebarOpen((v) => !v)}
+          onOpenSettings={onOpenSettings}
+          onLock={onLock}
+          onLogout={onLogout}
+        />
         <main className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4 sm:space-y-5 sm:p-5 lg:p-6">
           <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
             <div>
@@ -42,23 +48,7 @@ export default function DashboardPage() {
 
             <div className="flex items-center gap-2 sm:gap-3">
               <ExportMenu />
-              <button
-                type="button"
-                className="inline-flex h-9 cursor-pointer items-center gap-2 rounded-full bg-white px-3 text-[12px] font-medium text-[#4b5563] shadow-[0_1px_3px_rgba(16,24,40,0.08)] hover:bg-[#f9fafb] sm:h-10 sm:px-4 sm:text-[14px]"
-              >
-                Last 7 days
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  aria-hidden="true"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
+              <DateFilterMenu />
             </div>
           </div>
 

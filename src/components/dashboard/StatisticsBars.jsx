@@ -40,9 +40,9 @@ export default function StatisticsBars() {
             ))}
           </div>
 
-          {/* Wed tooltip */}
-          <div className="absolute top-2 left-[calc(100%/7*2.5)] z-10 -translate-x-1/2">
-            <div className="rounded-xl bg-white px-3.5 py-2.5 shadow-[0_8px_24px_rgba(16,24,40,0.12)]">
+          {/* Wed tooltip — pointer tip on the underside */}
+          <div className="absolute -top-1 left-[calc(100%/7*2.5)] z-10 -translate-x-1/2">
+            <div className="rounded-xl bg-white px-3.5 py-2.5 shadow-[0_8px_24px_rgba(16,24,40,0.14)]">
               <div className="mb-1 flex items-center gap-3 text-[12px] font-medium text-[#3F434A]">
                 <span className="inline-flex items-center gap-1.5">
                   <span
@@ -61,7 +61,7 @@ export default function StatisticsBars() {
               </div>
               <p className="text-center text-[11px] text-[#9ca3af]">23 August, 2020</p>
             </div>
-            <div className="mx-auto -mt-px h-0 w-0 border-x-[6px] border-t-[7px] border-x-transparent border-t-white drop-shadow-sm" />
+            <div className="relative mx-auto -mt-px h-0 w-0 border-x-[7px] border-t-[8px] border-x-transparent border-t-white drop-shadow-[0_2px_2px_rgba(16,24,40,0.08)]" />
           </div>
 
           <div className="absolute inset-x-0 top-0 bottom-7 flex items-end justify-between gap-4 px-2">
