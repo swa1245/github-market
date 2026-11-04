@@ -61,6 +61,7 @@ const profileMenuTop = [
 export default function Header({
   onMenuClick,
   onOpenSettings,
+  onOpenChat,
   onLock,
   onLogout,
   hideMenu,
@@ -195,6 +196,10 @@ export default function Header({
                     <button
                       key={item.label}
                       type="button"
+                      onClick={() => {
+                        setProfileOpen(false)
+                        if (item.label === 'My Messages') onOpenChat?.()
+                      }}
                       className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[13px] font-medium text-[#4b5563] hover:bg-[#f3f4f6]"
                     >
                       <span className="text-[#6b7280]">

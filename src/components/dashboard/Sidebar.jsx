@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import flowerLogo from '../../assets/images/Vector.svg'
 import cartIcon from '../../assets/images/shopping-cart-01.png'
 import chatIcon from '../../assets/images/comment-01.png'
@@ -14,8 +15,10 @@ import {
   IconSearch,
 } from './icons'
 
+const ecommerceSubs = ['Products', 'Orders', 'Customers']
+
 const navItems = [
-  { label: 'Dashboard', image: homeIcon, active: true },
+  { label: 'Dashboard', image: homeIcon },
   { label: 'Task', image: taskIcon },
   { label: 'E-Commerce', image: cartIcon, hasSub: true },
   { label: 'Calendar', image: calendarIcon },
@@ -27,7 +30,22 @@ const navItems = [
   { label: 'Contacts', image: contactsIcon },
 ]
 
-export default function Sidebar({ open = false, onClose }) {
+export default function Sidebar({
+  open = false,
+  onClose,
+  activeLabel = 'Dashboard',
+  onNavigate,
+}) {
+  const [ecommerceOpen, setEcommerceOpen] = useState(
+    activeLabel === 'E-Commerce' || ecommerceSubs.includes(activeLabel),
+  )
+  const [activeSub, setActiveSub] = useState(
+    ecommerceSubs.includes(activeLabel) ? activeLabel : 'Products',
+  )
+
+  const ecommerceActive =
+    activeLabel === 'E-Commerce' || ecommerceSubs.includes(activeLabel) || ecommerceOpen
+
   return (
     <aside
       className={`fixed inset-y-0 left-0 z-50 flex h-screen w-[min(250px,85vw)] shrink-0 flex-col overflow-hidden border-r border-[#eceff3] bg-white px-3 py-5 transition-transform duration-200 sm:px-4 lg:static lg:z-auto lg:w-[250px] lg:translate-x-0 ${
@@ -65,38 +83,120 @@ export default function Sidebar({ open = false, onClose }) {
       <nav className="flex-1 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon
+          const isEcommerce = item.label === 'E-Commerce'
+          const isActive = isEcommerce
+            ? ecommerceActive
+            : item.label === activeLabel && !ecommerceSubs.includes(activeLabel)
+
+          if (isEcommerce) {
+            return (
+              <div key={item.label}>
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className={`h-6 w-1 shrink-0 rounded-full ${
+                      ecommerceOpen || isActive ? 'bg-[#21943A]' : 'bg-transparent'
+                    }`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEcommerceOpen((open) => {
+                        if (!open) {
+                          setActiveSub('Products')
+                          onNavigate?.('Products')
+                        }
+                        return !open
+                      })
+                    }}
+                    className={`flex min-w-0 flex-1 cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[14px] font-medium transition ${
+                      ecommerceOpen || isActive
+                        ? 'bg-[#B9EB8E] text-[#0D1B2A]'
+                        : 'text-[#4b5563] hover:bg-[#f3f4f6]'
+                    }`}
+                  >
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center text-[#0D1B2A]">
+                      <img src={item.image} alt="" className="h-5 w-5 object-contain" />
+                    </span>
+                    <span className="flex-1 truncate">{item.label}</span>
+                    <span
+                      className={`text-[#0D1B2A] transition-transform ${
+                        ecommerceOpen ? 'rotate-[-90deg]' : 'rotate-90'
+                      }`}
+                    >
+                      <IconChevron />
+                    </span>
+                  </button>
+                </div>
+
+                {ecommerceOpen ? (
+                  <div className="mt-1 ml-[10px] space-y-1 pl-3">
+                    {ecommerceSubs.map((sub) => {
+                      const subActive = activeSub === sub
+                      return (
+                        <button
+                          key={sub}
+                          type="button"
+                          onClick={() => {
+                            setActiveSub(sub)
+                            onNavigate?.(sub)
+                            onClose?.()
+                          }}
+                          className={`flex w-full cursor-pointer items-center gap-3 rounded-md px-4 py-2.5 text-left text-[13px] font-medium transition ${
+                            subActive
+                              ? 'bg-[#FBF3D8] text-[#1f2937]'
+                              : 'bg-transparent text-[#6b7280] hover:bg-[#f3f4f6]'
+                          }`}
+                        >
+                          <span
+                            className={`h-[6px] w-[6px] shrink-0 rounded-full ${
+                              subActive ? 'bg-black' : 'bg-[#c4c9d1]'
+                            }`}
+                          />
+                          <span>{sub}</span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                ) : null}
+              </div>
+            )
+          }
+
           return (
             <div key={item.label} className="flex items-center gap-1.5">
               <span
                 className={`h-6 w-1 shrink-0 rounded-full ${
-                  item.active ? 'bg-[#21943A]' : 'bg-transparent'
+                  isActive ? 'bg-[#21943A]' : 'bg-transparent'
                 }`}
               />
               <button
                 type="button"
-                onClick={onClose}
+                onClick={() => {
+                  setEcommerceOpen(false)
+                  onNavigate?.(item.label)
+                  onClose?.()
+                }}
                 className={`flex min-w-0 flex-1 cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[14px] font-medium transition ${
-                  item.active
+                  isActive
                     ? 'bg-[#B9EB8E] text-[#0D1B2A]'
                     : 'text-[#4b5563] hover:bg-[#f3f4f6]'
                 }`}
               >
-                <span className={`flex h-5 w-5 shrink-0 items-center justify-center ${item.active ? 'text-[#0D1B2A]' : 'text-[#6b7280]'}`}>
+                <span
+                  className={`flex h-5 w-5 shrink-0 items-center justify-center ${
+                    isActive ? 'text-[#0D1B2A]' : 'text-[#6b7280]'
+                  }`}
+                >
                   {item.image ? (
                     <img src={item.image} alt="" className="h-5 w-5 object-contain" />
                   ) : (
-                    <Icon active={item.active} />
+                    <Icon active={isActive} />
                   )}
                 </span>
                 <span className="flex-1 truncate">{item.label}</span>
                 {item.badge ? (
                   <span className="rounded-full bg-[#ef4444] px-1.5 py-0.5 text-[10px] font-semibold text-white">
                     {item.badge}
-                  </span>
-                ) : null}
-                {item.hasSub ? (
-                  <span className="text-[#9ca3af]">
-                    <IconChevron />
                   </span>
                 ) : null}
               </button>

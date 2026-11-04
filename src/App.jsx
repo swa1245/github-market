@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import DashboardPage from './pages/dashboard/DashboardPage'
 import SettingsPage from './pages/settings/SettingsPage'
+import ChatPage from './pages/chat/ChatPage'
+import ProductsPage from './pages/products/ProductsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import LoginPage from './pages/auth/LoginPage'
 import RecoverPasswordPage from './pages/auth/RecoverPasswordPage'
@@ -16,6 +18,20 @@ export default function App() {
     return (
       <DashboardPage
         onOpenSettings={() => setView('settings')}
+        onOpenChat={() => setView('chat')}
+        onOpenProducts={() => setView('products')}
+        onLock={() => setView('unlock')}
+        onLogout={() => setView('login')}
+      />
+    )
+  }
+
+  if (view === 'products') {
+    return (
+      <ProductsPage
+        onOpenSettings={() => setView('settings')}
+        onOpenChat={() => setView('chat')}
+        onOpenDashboard={() => setView('dashboard')}
         onLock={() => setView('unlock')}
         onLogout={() => setView('login')}
       />
@@ -25,6 +41,21 @@ export default function App() {
   if (view === 'settings') {
     return (
       <SettingsPage
+        onLock={() => setView('unlock')}
+        onLogout={() => setView('login')}
+        onOpenDashboard={() => setView('dashboard')}
+        onOpenChat={() => setView('chat')}
+        onOpenProducts={() => setView('products')}
+      />
+    )
+  }
+
+  if (view === 'chat') {
+    return (
+      <ChatPage
+        onOpenSettings={() => setView('settings')}
+        onOpenDashboard={() => setView('dashboard')}
+        onOpenProducts={() => setView('products')}
         onLock={() => setView('unlock')}
         onLogout={() => setView('login')}
       />

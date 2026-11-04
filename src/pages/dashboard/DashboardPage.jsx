@@ -11,7 +11,13 @@ import Transactions from '../../components/dashboard/Transactions'
 import ExportMenu from '../../components/dashboard/ExportMenu'
 import DateFilterMenu from '../../components/dashboard/DateFilterMenu'
 
-export default function DashboardPage({ onOpenSettings, onLock, onLogout }) {
+export default function DashboardPage({
+  onOpenSettings,
+  onOpenChat,
+  onOpenProducts,
+  onLock,
+  onLogout,
+}) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
@@ -26,7 +32,15 @@ export default function DashboardPage({ onOpenSettings, onLock, onLogout }) {
         />
       ) : null}
 
-      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Sidebar
+        open={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        activeLabel="Dashboard"
+        onNavigate={(label) => {
+          if (label === 'Chat') onOpenChat?.()
+          if (label === 'Products') onOpenProducts?.()
+        }}
+      />
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
         <Header

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Header from '../../components/dashboard/Header'
+import ChatPanel from '../../components/dashboard/ChatPanel'
 import DateFilterMenu from '../../components/dashboard/DateFilterMenu'
 import ExportMenu from '../../components/dashboard/ExportMenu'
 import DateRange from '../../components/dashboard/DateRange'
@@ -545,9 +546,10 @@ function NewFollowers() {
 
 export default function SettingsPage({ onLock, onLogout }) {
   const [tab, setTab] = useState('settings')
+  const [chatOpen, setChatOpen] = useState(true)
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#f5f7fb]">
+    <div className="relative flex h-screen flex-col overflow-hidden bg-[#f5f7fb]">
       <header className="flex h-14 shrink-0 items-center justify-between gap-3 border-b border-[#eceff3] bg-white sm:h-16">
         {/* spacer matches profile sidebar so tabs start above the right panel */}
         <div className="hidden w-[280px] shrink-0 border-r border-[#eeeeee] lg:block" />
@@ -577,12 +579,15 @@ export default function SettingsPage({ onLock, onLogout }) {
             <Header
               actionsOnly
               onOpenSettings={() => setTab('settings')}
+              onOpenChat={() => setChatOpen(true)}
               onLock={onLock}
               onLogout={onLogout}
             />
           </div>
         </div>
       </header>
+
+      <ChatPanel open={chatOpen} onClose={() => setChatOpen(false)} />
 
       <div className="flex min-h-0 flex-1 overflow-hidden">
         {/* profile sidebar */}
