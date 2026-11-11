@@ -15,6 +15,9 @@ export default function DashboardPage({
   onOpenSettings,
   onOpenChat,
   onOpenProducts,
+  onOpenOrders,
+  onOpenCustomers,
+  onOpenCalendar,
   onLock,
   onLogout,
 }) {
@@ -39,6 +42,9 @@ export default function DashboardPage({
         onNavigate={(label) => {
           if (label === 'Chat') onOpenChat?.()
           if (label === 'Products') onOpenProducts?.()
+          if (label === 'Orders') onOpenOrders?.()
+          if (label === 'Customers') onOpenCustomers?.()
+          if (label === 'Calendar') onOpenCalendar?.()
         }}
       />
 

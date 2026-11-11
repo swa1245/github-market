@@ -90,6 +90,9 @@ export default function ChatPage({
   onLogout,
   onOpenDashboard,
   onOpenProducts,
+  onOpenOrders,
+  onOpenCustomers,
+  onOpenCalendar,
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [activeId, setActiveId] = useState('charlie')
@@ -133,6 +136,9 @@ export default function ChatPage({
         onNavigate={(label) => {
           if (label === 'Dashboard' && onOpenDashboard) onOpenDashboard()
           if (label === 'Products') onOpenProducts?.()
+          if (label === 'Orders') onOpenOrders?.()
+          if (label === 'Customers') onOpenCustomers?.()
+          if (label === 'Calendar') onOpenCalendar?.()
           if (label === 'Chat') setSidebarOpen(false)
         }}
       />

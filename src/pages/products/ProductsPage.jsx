@@ -216,6 +216,9 @@ export default function ProductsPage({
   onOpenSettings,
   onOpenChat,
   onOpenDashboard,
+  onOpenOrders,
+  onOpenCustomers,
+  onOpenCalendar,
   onLock,
   onLogout,
 }) {
@@ -324,6 +327,9 @@ export default function ProductsPage({
           if (label === 'Dashboard') onOpenDashboard?.()
           if (label === 'Chat') onOpenChat?.()
           if (label === 'Products') setSidebarOpen(false)
+          if (label === 'Orders') onOpenOrders?.()
+          if (label === 'Customers') onOpenCustomers?.()
+          if (label === 'Calendar') onOpenCalendar?.()
         }}
       />
 
