@@ -18,6 +18,7 @@ export default function DashboardPage({
   onOpenOrders,
   onOpenCustomers,
   onOpenCalendar,
+  onOpenMail,
   onLock,
   onLogout,
 }) {
@@ -45,6 +46,7 @@ export default function DashboardPage({
           if (label === 'Orders') onOpenOrders?.()
           if (label === 'Customers') onOpenCustomers?.()
           if (label === 'Calendar') onOpenCalendar?.()
+          if (label === 'Mail') onOpenMail?.()
         }}
       />
 

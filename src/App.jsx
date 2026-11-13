@@ -6,6 +6,7 @@ import ProductsPage from './pages/products/ProductsPage'
 import CustomersPage from './pages/customers/CustomersPage'
 import OrdersPage from './pages/orders/OrdersPage'
 import CalendarPage from './pages/calendar/CalendarPage'
+import MailPage from './pages/mail/MailPage'
 import NotFoundPage from './pages/NotFoundPage'
 import LoginPage from './pages/auth/LoginPage'
 import RecoverPasswordPage from './pages/auth/RecoverPasswordPage'
@@ -13,114 +14,54 @@ import RegisterPage from './pages/auth/RegisterPage'
 import ResetPasswordPage from './pages/auth/ResetPasswordPage'
 import UnlockPage from './pages/auth/UnlockPage'
 
+const pageNav = (setView) => ({
+  onOpenSettings: () => setView('settings'),
+  onOpenChat: () => setView('chat'),
+  onOpenDashboard: () => setView('dashboard'),
+  onOpenProducts: () => setView('products'),
+  onOpenOrders: () => setView('orders'),
+  onOpenCustomers: () => setView('customers'),
+  onOpenCalendar: () => setView('calendar'),
+  onOpenMail: () => setView('mail'),
+  onLock: () => setView('unlock'),
+  onLogout: () => setView('login'),
+})
+
 export default function App() {
   const [view, setView] = useState('login')
   const [email, setEmail] = useState('')
+  const nav = pageNav(setView)
 
   if (view === 'dashboard') {
-    return (
-      <DashboardPage
-        onOpenSettings={() => setView('settings')}
-        onOpenChat={() => setView('chat')}
-        onOpenProducts={() => setView('products')}
-        onOpenOrders={() => setView('orders')}
-        onOpenCustomers={() => setView('customers')}
-        onOpenCalendar={() => setView('calendar')}
-        onLock={() => setView('unlock')}
-        onLogout={() => setView('login')}
-      />
-    )
+    return <DashboardPage {...nav} />
   }
 
   if (view === 'products') {
-    return (
-      <ProductsPage
-        onOpenSettings={() => setView('settings')}
-        onOpenChat={() => setView('chat')}
-        onOpenDashboard={() => setView('dashboard')}
-        onOpenOrders={() => setView('orders')}
-        onOpenCustomers={() => setView('customers')}
-        onOpenCalendar={() => setView('calendar')}
-        onLock={() => setView('unlock')}
-        onLogout={() => setView('login')}
-      />
-    )
+    return <ProductsPage {...nav} />
   }
 
   if (view === 'orders') {
-    return (
-      <OrdersPage
-        onOpenSettings={() => setView('settings')}
-        onOpenChat={() => setView('chat')}
-        onOpenDashboard={() => setView('dashboard')}
-        onOpenProducts={() => setView('products')}
-        onOpenCustomers={() => setView('customers')}
-        onOpenCalendar={() => setView('calendar')}
-        onLock={() => setView('unlock')}
-        onLogout={() => setView('login')}
-      />
-    )
+    return <OrdersPage {...nav} />
   }
 
   if (view === 'customers') {
-    return (
-      <CustomersPage
-        activeLabel="Customers"
-        onOpenSettings={() => setView('settings')}
-        onOpenChat={() => setView('chat')}
-        onOpenDashboard={() => setView('dashboard')}
-        onOpenProducts={() => setView('products')}
-        onOpenOrders={() => setView('orders')}
-        onOpenCalendar={() => setView('calendar')}
-        onLock={() => setView('unlock')}
-        onLogout={() => setView('login')}
-      />
-    )
+    return <CustomersPage activeLabel="Customers" {...nav} />
   }
 
   if (view === 'calendar') {
-    return (
-      <CalendarPage
-        onOpenSettings={() => setView('settings')}
-        onOpenChat={() => setView('chat')}
-        onOpenDashboard={() => setView('dashboard')}
-        onOpenProducts={() => setView('products')}
-        onOpenOrders={() => setView('orders')}
-        onOpenCustomers={() => setView('customers')}
-        onLock={() => setView('unlock')}
-        onLogout={() => setView('login')}
-      />
-    )
+    return <CalendarPage {...nav} />
+  }
+
+  if (view === 'mail') {
+    return <MailPage {...nav} />
   }
 
   if (view === 'settings') {
-    return (
-      <SettingsPage
-        onLock={() => setView('unlock')}
-        onLogout={() => setView('login')}
-        onOpenDashboard={() => setView('dashboard')}
-        onOpenChat={() => setView('chat')}
-        onOpenProducts={() => setView('products')}
-        onOpenOrders={() => setView('orders')}
-        onOpenCustomers={() => setView('customers')}
-        onOpenCalendar={() => setView('calendar')}
-      />
-    )
+    return <SettingsPage {...nav} />
   }
 
   if (view === 'chat') {
-    return (
-      <ChatPage
-        onOpenSettings={() => setView('settings')}
-        onOpenDashboard={() => setView('dashboard')}
-        onOpenProducts={() => setView('products')}
-        onOpenOrders={() => setView('orders')}
-        onOpenCustomers={() => setView('customers')}
-        onOpenCalendar={() => setView('calendar')}
-        onLock={() => setView('unlock')}
-        onLogout={() => setView('login')}
-      />
-    )
+    return <ChatPage {...nav} />
   }
 
   if (view === 'register') {

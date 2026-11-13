@@ -57,6 +57,7 @@ export default function OrdersPage({
   onOpenProducts,
   onOpenCustomers,
   onOpenCalendar,
+  onOpenMail,
   onLock,
   onLogout,
 }) {
@@ -121,6 +122,7 @@ export default function OrdersPage({
           if (label === 'Orders') setSidebarOpen(false)
           if (label === 'Customers') onOpenCustomers?.()
           if (label === 'Calendar') onOpenCalendar?.()
+          if (label === 'Mail') onOpenMail?.()
         }}
       />
 

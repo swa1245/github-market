@@ -291,6 +291,7 @@ export default function CalendarPage({
   onOpenProducts,
   onOpenOrders,
   onOpenCustomers,
+  onOpenMail,
   onLock,
   onLogout,
 }) {
@@ -422,6 +423,7 @@ export default function CalendarPage({
           if (label === 'Products') onOpenProducts?.()
           if (label === 'Orders') onOpenOrders?.()
           if (label === 'Customers') onOpenCustomers?.()
+          if (label === 'Mail') onOpenMail?.()
           if (label === 'Calendar') setSidebarOpen(false)
         }}
       />

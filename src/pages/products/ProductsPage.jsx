@@ -219,6 +219,7 @@ export default function ProductsPage({
   onOpenOrders,
   onOpenCustomers,
   onOpenCalendar,
+  onOpenMail,
   onLock,
   onLogout,
 }) {
@@ -330,6 +331,7 @@ export default function ProductsPage({
           if (label === 'Orders') onOpenOrders?.()
           if (label === 'Customers') onOpenCustomers?.()
           if (label === 'Calendar') onOpenCalendar?.()
+          if (label === 'Mail') onOpenMail?.()
         }}
       />
 

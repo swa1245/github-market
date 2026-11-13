@@ -145,6 +145,7 @@ export default function CustomersPage({
   onOpenOrders,
   onOpenCustomers,
   onOpenCalendar,
+  onOpenMail,
   onLock,
   onLogout,
   activeLabel = 'Customers',
@@ -234,6 +235,7 @@ export default function CustomersPage({
           if (label === 'Orders') onOpenOrders?.()
           if (label === 'Customers') onOpenCustomers?.()
           if (label === 'Calendar') onOpenCalendar?.()
+          if (label === 'Mail') onOpenMail?.()
           if (label === activeLabel) setSidebarOpen(false)
         }}
       />
